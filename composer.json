@@ -1,5 +1,5 @@
 {
-    "name": "store/store",
+    "name": "x/store",
     "autoload": {
         "psr-4": {
             "Store\\": "src"
