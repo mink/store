@@ -49,13 +49,7 @@ class Store extends Collection
     
     public function offsetSet($key, $value)
     {
-        if(!$key) 
-        {
-            $this->items[] = $value; 
-            return;
-        }
-        
-        $this->createItem($key, $value);
+        !$key ? $this->items[] = $value : $this->createItem($key, $value);
     }
     
     public function offsetExists($key)
