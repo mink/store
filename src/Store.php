@@ -6,8 +6,15 @@ use Illuminate\Support\{Collection,HigherOrderCollectionProxy};
 
 class Store extends Collection
 {
-    public function __construct($items = [])
+    private $parent;
+    
+    public function __construct($items = [], $parent = null)
     {
+        if(isset($parent) && $parent instanceof self)
+        {
+            $this->parent = $parent;
+        }
+        
         if(!empty($items))
         {
             foreach($items as $key => $value)
@@ -25,7 +32,7 @@ class Store extends Collection
     
     private function createNestedItem($items = [])
     {
-        return new self($items);
+        return new self($items, $this);
     }
     
     private function createSimpleItem($value)
@@ -39,6 +46,11 @@ class Store extends Collection
         {
             $this->createItem($key);
         }
+    }
+    
+    public function parent()
+    {
+        return $this->parent;
     }
     
     public function offsetGet($key)
