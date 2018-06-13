@@ -195,9 +195,6 @@ class Store extends Collection
      */
     public function __unset($key): void
     {
-        if(isset($this->items[$key]))
-        {
-            unset($this->items[$key]);
-        }
+        unset($this->items[$key]);
     }
 }
