@@ -12,7 +12,7 @@ class Store extends Collection
     {
         $this->parent = $parent;
         
-        if(!empty($items))
+        if($items)
         {
             foreach($items as $key => $value)
             {
@@ -63,18 +63,12 @@ class Store extends Collection
     
     public function offsetExists($key)
     {
-        if(!empty(array_get($this->items, $key)))
-        {
-            return true;
-        }
+        return !empty(array_get($this->items, $key));
     }
     
     public function offsetUnset($key)
     {
-        if(isset($this->items[$key]))
-        {
-            unset($this->items[$key]);
-        }
+        unset($this->items[$key]);
     }
     
     public function __get($key)
@@ -95,10 +89,7 @@ class Store extends Collection
     
     public function __isset($key)
     {
-        if(isset($this->items[$key]))
-        {
-            return true;
-        }
+        return isset($this->items[$key]);
     }
     
     public function __unset($key)
@@ -111,7 +102,8 @@ class Store extends Collection
     
     public function get($key, $default = null)
     {
-        if ($this->offsetExists($key)) {
+        if ($this->offsetExists($key))
+        {
             return array_get($this->items, $key, $default);
         }
 
