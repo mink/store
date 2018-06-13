@@ -22,14 +22,14 @@ class Store extends Collection
     public function __construct($items = [], Store $parent = null)
     {
         $this->parent = $parent;
-        
-        if($items)
+
+        $items = $this->getArrayableItems($items);
+
+        foreach($items as $key => $value)
         {
-            foreach($items as $key => $value)
-            {
-                $this->createItem($key, $value);
-            }
+            $this->createItem($key, $value);
         }
+
     }
 
     /**
