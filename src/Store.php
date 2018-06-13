@@ -37,10 +37,11 @@ class Store extends Collection
      *
      * @param $key
      * @param array $value
+     * @return array|Store
      */
-    private function createItem($key, $value = []): void
+    private function createItem($key, $value = [])
     {
-        $this->items[$key] = (is_array($value) || is_object($value)) ? $this->createNestedItem($value)
+        return $this->items[$key] = (is_array($value) || is_object($value)) ? $this->createNestedItem($value)
             : $value;
     }
 
@@ -56,16 +57,31 @@ class Store extends Collection
     }
 
     /**
-     * Creates an item if the key is not present.
+     * Get an item from the collection by key.
+     *
+     * @param mixed $key
+     * @param null $default
+     * @return mixed
+     */
+    public function get($key, $default = null)
+    {
+        if ($this->offsetExists($key))
+        {
+            return array_get($this->items, $key, $default);
+        }
+
+        return value($default);
+    }
+
+    /**
+     * Gets an item from the store or creates it if it does not exist.
      *
      * @param $key
+     * @return array|mixed|Store
      */
-    private function createItemIfNotExists($key)
+    private function getItem($key)
     {
-        if (!array_get($this->items, $key))
-        {
-            $this->createItem($key);
-        }
+        return array_get($this->items, $key) ?? $this->createItem($key);
     }
 
     /**
@@ -79,6 +95,19 @@ class Store extends Collection
     }
 
     /**
+     * Set an item in the store by key.
+     * An alias of Collection's put method.
+     *
+     * @param $key
+     * @param $value
+     * @return $this
+     */
+    public function set($key, $value): Store
+    {
+        return $this->put($key, $value);
+    }
+
+    /**
      * Get an item at a given offset.
      *
      * @param mixed $key
@@ -86,8 +115,7 @@ class Store extends Collection
      */
     public function offsetGet($key)
     {
-        $this->createItemIfNotExists($key);
-        return $this->items[$key];
+        return $this->getItem($key);
     }
 
     /**
@@ -135,8 +163,7 @@ class Store extends Collection
             return new HigherOrderCollectionProxy($this, $key);
         }
         
-        $this->createItemIfNotExists($key);
-        return array_get($this->items, $key);
+        return $this->getItem($key);
     }
 
     /**
@@ -172,35 +199,5 @@ class Store extends Collection
         {
             unset($this->items[$key]);
         }
-    }
-
-    /**
-     * Get an item from the collection by key.
-     *
-     * @param mixed $key
-     * @param null $default
-     * @return mixed
-     */
-    public function get($key, $default = null)
-    {
-        if ($this->offsetExists($key))
-        {
-            return array_get($this->items, $key, $default);
-        }
-
-        return value($default);
-    }
-
-    /**
-     * Set an item in the store by key.
-     * An alias of Collection's put method.
-     *
-     * @param $key
-     * @param $value
-     * @return $this
-     */
-    public function set($key, $value): Store
-    {
-        return $this->put($key, $value);
     }
 }
