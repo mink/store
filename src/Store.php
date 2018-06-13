@@ -24,19 +24,12 @@ class Store extends Collection
     private function createItem($key, $value = []): void
     {
         $this->items[$key] = (is_array($value) || is_object($value)) ? $this->createNestedItem($value)
-            : $this->createSimpleItem($value);
     }
     
     private function createNestedItem($items = []): self
     {
         return new self($items, $this);
     }
-    
-    private function createSimpleItem($value)
-    {
-        return $value;
-    }
-    
     private function createItemIfNotExists($key)
     {
         if (!array_get($this->items, $key))
