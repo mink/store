@@ -2,7 +2,7 @@
     "name": "x/store",
     "autoload": {
         "psr-4": {
-            "Store\\": "src"
+            "X\\": "src"
         },
         "files": [
             "helpers.php"
