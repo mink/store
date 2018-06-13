@@ -6,7 +6,7 @@ use Illuminate\Support\{Collection,HigherOrderCollectionProxy};
 
 class Store extends Collection
 {
-    private $parent;
+    protected $parent;
     
     public function __construct($items = [], self $parent = null)
     {
