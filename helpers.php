@@ -1,9 +1,11 @@
 <?php
 
+use X\Store;
+
 if(!function_exists('store'))
 {
-    function store($value = null)
+    function store(array $value = null)
     {
-        return new \X\Store($value);
+        return new Store($value);
     }
 }
