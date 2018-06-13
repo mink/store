@@ -61,4 +61,23 @@ final class SetTest extends TestCase
         $this->assertInstanceOf(Collection::class, $store->empty_array);
         $this->assertInstanceOf(Collection::class, $store['doesnt_exist_yet']);
     }
+    
+    public function testIfSet()
+    {
+        $store = new Store(['key' => 'value', 'empty_array' => []]);
+        $emptyStore = new Store();
+        
+        // the store is set
+        $this->assertTrue(isset($store));
+        
+        // the store is set, just has no data
+        $this->assertTrue(isset($emptyStore));
+        
+        // this key within the store is set
+        $this->assertTrue(isset($store->empty_array));
+        
+        // these keys don't exist yet, they are not set
+        $this->assertFalse(isset($store['not-here']));
+        $this->assertFalse(isset($store['empty_array']->something));
+    }
 }
