@@ -8,12 +8,9 @@ class Store extends Collection
 {
     private $parent;
     
-    public function __construct($items = [], $parent = null)
+    public function __construct($items = [], self $parent = null)
     {
-        if(isset($parent) && $parent instanceof self)
-        {
-            $this->parent = $parent;
-        }
+        $this->parent = $parent;
         
         if(!empty($items))
         {
