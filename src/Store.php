@@ -57,6 +57,19 @@ class Store extends Collection
     }
 
     /**
+     * Empty the existing Store instance.
+     * This will not remove the parent.
+     *
+     * @return Store
+     */
+    public function empty()
+    {
+        $this->items = [];
+
+        return $this;
+    }
+
+    /**
      * Get an item from the collection by key.
      *
      * @param mixed $key
