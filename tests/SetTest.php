@@ -22,6 +22,16 @@ final class SetTest extends TestCase
         
         // the key 'empty_array' is empty
         $this->assertEmpty($store['empty_array']);
+
+        // whether the store is empty or not
+        // empty() will return false for any php object
+        $this->assertFalse(empty($store));
+        $this->assertFalse(empty($emptyStore));
+
+        // however, you can check if the store
+        // is empty by converting it into an array
+        $this->assertFalse(empty($store->toArray()));
+        $this->assertTrue(empty($emptyStore->toArray()));
     }
     
     public function testIfNull()
