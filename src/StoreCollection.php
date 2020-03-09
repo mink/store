@@ -4,22 +4,22 @@ namespace X\Store;
 
 use Illuminate\Support\{Arr, Collection, HigherOrderCollectionProxy};
 
-class Store extends Collection
+class StoreCollection extends Collection
 {
     /**
      * The parent Store if the instance has one.
      *
-     * @var null|Store
+     * @var null|StoreCollection
      */
-    protected $parent;
+    protected ?StoreCollection $parent;
 
     /**
-     * Create a new Store instance.
+     * Create a new StoreCollection instance.
      *
-     * @param array $items
-     * @param Store|null $parent
+     * @param mixed $items
+     * @param StoreCollection|null $parent
      */
-    public function __construct($items = [], Store $parent = null)
+    public function __construct($items = [], ?StoreCollection $parent = null)
     {
         $this->parent = $parent;
 
@@ -29,15 +29,14 @@ class Store extends Collection
         {
             $this->createItem($key, $value);
         }
-
     }
 
     /**
      * Creates an item, either a child instance or the value given.
      *
-     * @param $key
-     * @param array $value
-     * @return array|Store
+     * @param mixed $key
+     * @param mixed $value
+     * @return mixed
      */
     private function createItem($key, $value = [])
     {
@@ -46,23 +45,23 @@ class Store extends Collection
     }
 
     /**
-     * Creates a child Store instance.
+     * Creates a child StoreCollection instance.
      *
-     * @param array $items
-     * @return Store
+     * @param mixed $items
+     * @return StoreCollection
      */
-    private function createNestedItem($items = []): Store
+    private function createNestedItem($items = []): StoreCollection
     {
         return new self($items, $this);
     }
 
     /**
-     * Empty the existing Store instance.
+     * Empty the existing StoreCollection instance.
      * This will not remove the parent.
      *
-     * @return Store
+     * @return StoreCollection
      */
-    public function empty()
+    public function empty(): StoreCollection
     {
         $this->items = [];
 
@@ -73,7 +72,7 @@ class Store extends Collection
      * Get an item from the collection by key.
      *
      * @param mixed $key
-     * @param null $default
+     * @param mixed $default
      * @return mixed
      */
     public function get($key, $default = null)
@@ -89,8 +88,8 @@ class Store extends Collection
     /**
      * Gets an item from the store or creates it if it does not exist.
      *
-     * @param $key
-     * @return array|mixed|Store
+     * @param mixed $key
+     * @return mixed
      */
     private function getItem($key)
     {
@@ -100,9 +99,9 @@ class Store extends Collection
     /**
      * Get the parent store if it exists.
      *
-     * @return null|Store
+     * @return null|StoreCollection
      */
-    public function parent()
+    public function parent(): ?StoreCollection
     {
         return $this->parent;
     }
@@ -111,11 +110,11 @@ class Store extends Collection
      * Set an item in the store by key.
      * An alias of Collection's put method.
      *
-     * @param $key
-     * @param $value
+     * @param mixed $key
+     * @param mixed $value
      * @return $this
      */
-    public function set($key, $value): Store
+    public function set($key, $value): StoreCollection
     {
         return $this->put($key, $value);
     }
@@ -156,7 +155,7 @@ class Store extends Collection
     /**
      * Unset the item at a given offset.
      *
-     * @param string $key
+     * @param mixed $key
      */
     public function offsetUnset($key): void
     {
@@ -166,7 +165,7 @@ class Store extends Collection
     /**
      * Dynamically access store proxies and items.
      *
-     * @param string $key
+     * @param mixed $key
      * @return HigherOrderCollectionProxy|mixed
      */
     public function __get($key)
@@ -182,8 +181,8 @@ class Store extends Collection
     /**
      * Set items in the store directly.
      *
-     * @param $key
-     * @param $value
+     * @param mixed $key
+     * @param mixed $value
      */
     public function __set($key, $value): void
     {
@@ -193,7 +192,7 @@ class Store extends Collection
     /**
      * Determine if the key is set or not.
      *
-     * @param $key
+     * @param mixed $key
      * @return bool
      */
     public function __isset($key): bool
@@ -204,7 +203,7 @@ class Store extends Collection
     /**
      * Unset a key from the store.
      *
-     * @param $key
+     * @param mixed $key
      */
     public function __unset($key): void
     {

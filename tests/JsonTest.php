@@ -1,13 +1,13 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use X\Store\Store;
+use X\Store\StoreCollection;
 
 final class JsonTest extends TestCase
 {
     public function testJsonOutput()
     {
-        $store = new Store([
+        $store = new StoreCollection([
             'name' => 'James',
             'fruits' => ['apple', 'banana', 'orange'],
             'resources' => [

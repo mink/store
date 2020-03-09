@@ -32,5 +32,5 @@ composer require x/store
 Anywhere you normally use a Collection instance you are able to use `Store` instead. you can also use the `store()` helper function to create an instance.
 ```php
 $array = ['testing' => 123];
-$store = store($array); // or new X\Store($array)
+$store = store($array); // or new X\Store\StoreCollection($array)
 ```

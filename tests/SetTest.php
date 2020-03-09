@@ -1,15 +1,15 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use X\Store\Store;
+use X\Store\StoreCollection;
 use Illuminate\Support\Collection;
 
 final class SetTest extends TestCase
 {
     public function testIfEmpty()
     {
-        $store = new Store(['key' => 'value', 'empty_array' => []]);
-        $emptyStore = new Store();
+        $store = new StoreCollection(['key' => 'value', 'empty_array' => []]);
+        $emptyStore = new StoreCollection();
         
         // store contains data
         $this->assertNotEmpty($store);
@@ -36,37 +36,37 @@ final class SetTest extends TestCase
     
     public function testIfNull()
     {
-        $store = new Store(['key' => 'value', 'empty_array' => []]);
-        $emptyStore = new Store();
+        $store = new StoreCollection(['key' => 'value', 'empty_array' => []]);
+        $emptyStore = new StoreCollection();
         
         // a store with data is of course not null
         $this->assertNotNull($store);
         
-        // an empty store is not null, it is an instance of Store
+        // an empty store is not null, it is an instance of StoreCollection
         $this->assertNotNull($emptyStore);
         
         // the key empty_array is not considered null, it is transformed
-        // into an instance of Store automatically
+        // into an instance of StoreCollection automatically
         $this->assertNotNull($store->empty_array);
     }
     
     public function testIfStore()
     {
-        $store = new Store(['key' => 'value', 'empty_array' => []]);
+        $store = new StoreCollection(['key' => 'value', 'empty_array' => []]);
         
-        // both are a Store instance, regardless of contained data
-        $this->assertInstanceOf(Store::class, $store);
-        $this->assertInstanceOf(Store::class, $store->empty_array);
+        // both are a StoreCollection instance, regardless of contained data
+        $this->assertInstanceOf(StoreCollection::class, $store);
+        $this->assertInstanceOf(StoreCollection::class, $store->empty_array);
         
         // the key being searched for will be created automatically
-        // and instanced as a Store if it does not exist
-        $this->assertInstanceOf(Store::class, $store->aaaaaaaa);
-        $this->assertInstanceOf(Store::class, $store['testing']->{123}['hello']);
+        // and instanced as a StoreCollection if it does not exist
+        $this->assertInstanceOf(StoreCollection::class, $store->aaaaaaaa);
+        $this->assertInstanceOf(StoreCollection::class, $store['testing']->{123}['hello']);
         
-        // this key cannot be a Store, it returns a string
-        $this->assertNotInstanceOf(Store::class, $store['key']);
+        // this key cannot be a StoreCollection, it returns a string
+        $this->assertNotInstanceOf(StoreCollection::class, $store['key']);
         
-        // Store extends the Collection of illuminate/support
+        // StoreCollection extends the Collection of illuminate/support
         $this->assertInstanceOf(Collection::class, $store);
         $this->assertInstanceOf(Collection::class, $store->empty_array);
         $this->assertInstanceOf(Collection::class, $store['doesnt_exist_yet']);
@@ -74,8 +74,8 @@ final class SetTest extends TestCase
     
     public function testIfSet()
     {
-        $store = new Store(['key' => 'value', 'empty_array' => []]);
-        $emptyStore = new Store();
+        $store = new StoreCollection(['key' => 'value', 'empty_array' => []]);
+        $emptyStore = new StoreCollection();
         
         // the store is set
         $this->assertTrue(isset($store));

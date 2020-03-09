@@ -1,13 +1,13 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use X\Store\Store;
+use X\Store\StoreCollection;
 
 final class AccessorTest extends TestCase
 {
     public function testArrayAccess()
     {
-        $store = new Store([
+        $store = new StoreCollection([
             'name' => 'James',
             'fruits' => ['apple', 'banana', 'orange'],
             'resources' => [
@@ -36,7 +36,7 @@ final class AccessorTest extends TestCase
     
     public function testPropertyAccess()
     {
-        $store = new Store([
+        $store = new StoreCollection([
             'name' => 'James',
             'fruits' => ['apple', 'banana', 'orange'],
             'resources' => [
@@ -65,7 +65,7 @@ final class AccessorTest extends TestCase
     
     public function testDotSyntax()
     {
-        $store = new Store([
+        $store = new StoreCollection([
             'form' => [
                 'register' => [
                     'enabled' => true,

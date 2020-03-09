@@ -1,11 +1,11 @@
 <?php
 
-use X\Store\Store;
+use X\Store\StoreCollection;
 
 if(!function_exists('store'))
 {
     function store(array $value = null)
     {
-        return new Store($value);
+        return new StoreCollection($value);
     }
 }

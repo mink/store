@@ -1,13 +1,13 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use X\Store\Store;
+use X\Store\StoreCollection;
 
 final class ParentScopeTest extends TestCase
 {
     public function testParentFromChild(): void
     {
-        $parent = new Store([
+        $parent = new StoreCollection([
             'child' => [
                 'some', 'data', 'here'
             ]
@@ -18,7 +18,7 @@ final class ParentScopeTest extends TestCase
     
     public function testChildFromParentFromChild(): void
     {
-        $parent = new Store([
+        $parent = new StoreCollection([
             'child' => [
                 'some', 'data', 'here'
             ]
@@ -29,7 +29,7 @@ final class ParentScopeTest extends TestCase
     
     public function testGrandparentFromGrandchild(): void
     {
-        $parent = new Store([
+        $parent = new StoreCollection([
             'child' => [
                 'grand_child' => [
                     'i am the grandchild'
