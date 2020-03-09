@@ -1,6 +1,6 @@
 <?php
 
-use X\Store;
+use X\Store\Store;
 
 if(!function_exists('store'))
 {

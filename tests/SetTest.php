@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use X\Store;
+use X\Store\Store;
 use Illuminate\Support\Collection;
 
 final class SetTest extends TestCase

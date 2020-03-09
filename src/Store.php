@@ -1,6 +1,6 @@
 <?php
 
-namespace X;
+namespace X\Store;
 
 use Illuminate\Support\{Collection,HigherOrderCollectionProxy};
 

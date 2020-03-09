@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use X\Store;
+use X\Store\Store;
 
 final class ParentScopeTest extends TestCase
 {
