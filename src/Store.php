@@ -2,7 +2,7 @@
 
 namespace X\Store;
 
-use Illuminate\Support\{Collection,HigherOrderCollectionProxy};
+use Illuminate\Support\{Arr, Collection, HigherOrderCollectionProxy};
 
 class Store extends Collection
 {
@@ -80,7 +80,7 @@ class Store extends Collection
     {
         if ($this->offsetExists($key))
         {
-            return array_get($this->items, $key, $default);
+            return Arr::get($this->items, $key, $default);
         }
 
         return value($default);
@@ -94,7 +94,7 @@ class Store extends Collection
      */
     private function getItem($key)
     {
-        return array_get($this->items, $key) ?? $this->createItem($key);
+        return Arr::get($this->items, $key) ?? $this->createItem($key);
     }
 
     /**
@@ -150,7 +150,7 @@ class Store extends Collection
      */
     public function offsetExists($key): bool
     {
-        return !empty(array_get($this->items, $key));
+        return !empty(Arr::get($this->items, $key));
     }
 
     /**
