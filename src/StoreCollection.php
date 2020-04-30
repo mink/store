@@ -2,7 +2,11 @@
 
 namespace X\Store;
 
-use Illuminate\Support\{Arr, Collection, HigherOrderCollectionProxy};
+use Illuminate\Support\{
+    Arr,
+    Collection,
+    HigherOrderCollectionProxy
+};
 
 class StoreCollection extends Collection
 {
@@ -22,11 +26,9 @@ class StoreCollection extends Collection
     public function __construct($items = [], ?StoreCollection $parent = null)
     {
         $this->parent = $parent;
-
         $items = $this->getArrayableItems($items);
 
-        foreach($items as $key => $value)
-        {
+        foreach ($items as $key => $value) {
             $this->createItem($key, $value);
         }
     }
@@ -40,7 +42,8 @@ class StoreCollection extends Collection
      */
     private function createItem($key, $value = [])
     {
-        return $this->items[$key] = (is_array($value) || is_object($value)) ? $this->createNestedItem($value)
+        return $this->items[$key] = (is_array($value) || is_object($value))
+            ? $this->createNestedItem($value)
             : $value;
     }
 
@@ -64,7 +67,6 @@ class StoreCollection extends Collection
     public function empty(): StoreCollection
     {
         $this->items = [];
-
         return $this;
     }
 
@@ -77,12 +79,9 @@ class StoreCollection extends Collection
      */
     public function get($key, $default = null)
     {
-        if ($this->offsetExists($key))
-        {
-            return Arr::get($this->items, $key, $default);
-        }
-
-        return value($default);
+        return $this->offsetExists($key)
+            ? Arr::get($this->items, $key, $default)
+            : value($default);
     }
 
     /**
@@ -138,7 +137,9 @@ class StoreCollection extends Collection
      */
     public function offsetSet($key, $value): void
     {
-        !$key ? $this->items[] = $value : $this->createItem($key, $value);
+        !$key
+            ? $this->items[] = $value
+            : $this->createItem($key, $value);
     }
 
     /**
@@ -170,12 +171,9 @@ class StoreCollection extends Collection
      */
     public function __get($key)
     {
-        if (in_array($key, static::$proxies))
-        {
-            return new HigherOrderCollectionProxy($this, $key);
-        }
-        
-        return $this->getItem($key);
+        return in_array($key, static::$proxies)
+            ? new HigherOrderCollectionProxy($this, $key)
+            : $this->getItem($key);
     }
 
     /**
