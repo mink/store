@@ -3,6 +3,7 @@
 namespace X\Store\Casts;
 
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
+use Illuminate\Support\Collection;
 use X\Store\StoreCollection;
 
 class JsonStoreCast implements CastsAttributes
@@ -14,6 +15,6 @@ class JsonStoreCast implements CastsAttributes
 
     public function set($model, $key, $value, $attributes)
     {
-        return ($value instanceof StoreCollection) ? $value->toJson() : $value;
+        return ($value instanceof Collection) ? $value->toJson() : json_encode($value);
     }
 }
