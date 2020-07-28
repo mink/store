@@ -33,8 +33,8 @@ class JsonStoreCast implements CastsAttributes
      */
     public function set($model, $key, $value, $attributes): string
     {
-        return ($value instanceof Collection)
+        return $value instanceof Collection
             ? $value->toJson()
-            : json_encode($value);
+            : $value;
     }
 }
