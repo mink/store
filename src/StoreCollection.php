@@ -64,7 +64,7 @@ class StoreCollection extends Collection
      *
      * @return StoreCollection
      */
-    public function empty(): StoreCollection
+    public function clear(): StoreCollection
     {
         $this->items = [];
         return $this;
